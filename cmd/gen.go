@@ -92,6 +92,7 @@ type visitor struct {
 type GenData struct {
 	PackageName      string
 	TypeName         string
+	DelegateName     string
 	Wrapper          *ParamInfo
 	Imports          []*ImportInfo
 	Interfaces       []*InterfaceInfo
@@ -120,8 +121,18 @@ func (v *visitor) Visit(node ast.Node) (w ast.Visitor) {
 			log.Printf("interface --> %s", t.Name.Name)
 			v.parseInterface("", t.Name.Name, typeSpec)
 		}
-	case *ast.InterfaceType:
-
+	case *ast.FuncDecl:
+		if t.Name.Name == delegateMethodName {
+			returnType := t.Type.Results.List[0].Type
+			returnInfo := v.buildParams("", false, nil, returnType)[0]
+			v.parsedInfo.DelegateName = func() string {
+				if returnInfo.Ptr {
+					return "*" + returnInfo.Typed
+				}
+				return returnInfo.Typed
+			}()
+			log.Printf("return --> %+v", returnInfo)
+		}
 	}
 	return v
 }

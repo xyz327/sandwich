@@ -6,7 +6,9 @@ import (
 )
 
 type Wrapper[T any] interface {
+	// GetDelegate 获取包装的原始对象
 	GetDelegate() T
+	// WrapperMethod 包装方法的回调，这里可以做一些处理
 	WrapperMethod(ctx context.Context, invoke *Invoke)
 }
 
@@ -16,10 +18,13 @@ type Valued struct {
 }
 
 type Invoke struct {
-	once       sync.Once
+	once sync.Once
+	Ctx  context.Context
+	// 方法名
 	MethodName string
-	Ctx        context.Context
-	Params     []*Valued
+	// 方法入参
+	Params []*Valued
+	// 方法返回值
 	Returns    []*Valued
 	_DoProcess func() []*Valued
 	_proceed   bool

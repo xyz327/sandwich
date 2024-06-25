@@ -1,6 +1,9 @@
 package example
 
-import "context"
+import (
+	"context"
+	"fmt"
+)
 
 var _ IOrigin = (*Origin)(nil)
 
@@ -13,8 +16,7 @@ type Origin struct {
 }
 
 func (o *Origin) DoSomething() {
-	//TODO implement me
-	panic("implement me")
+	fmt.Println("DoSomething")
 }
 
 func (o *Origin) DoSomething1(ctx context.Context, key, val string) error {

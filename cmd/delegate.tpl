@@ -7,6 +7,7 @@ package {{.PackageName}}
 {{range .Imports}}
 import {{.Name}} {{.Path}}
 {{end}}
+var _ sandwich.Wrapper[{{$.DelegateName}}] = (*{{$.TypeName}})(nil)
 {{range .FuncTypes}}
 type {{.Name}} {{.Type}}
 {{end}}
@@ -30,8 +31,7 @@ func (c *{{$.TypeName}}) {{.Name}}({{template "parseParam" .Args}}) ({{template 
         {{$len := len .Returns}}{{if eq 0 $len}}c.GetDelegate().{{.Name}}({{template "invokeArgs" .Args}}){{else}}
         {{template "paramName" .Returns}} = c.GetDelegate().{{.Name}}({{template "invokeArgs" .Args}})
         invoke.Returns=make([]*sandwich.Valued,{{len .Returns}})
-        {{range $i,$v:=.Returns}} invoke.Returns[{{$i}}] = &sandwich.Valued{Name: "{{$v.Name}}", Value: {{$v.Name}}}; {{end}}
-         {{end}}
+        {{range $i,$v:=.Returns}} invoke.Returns[{{$i}}] = &sandwich.Valued{Name: "{{$v.Name}}", Value: {{$v.Name}}}; {{end}}{{end}}
         return invoke.Returns
 
     })
