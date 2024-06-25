@@ -49,9 +49,9 @@ func (c *WrapperTest) DoSomething1(ctx context.Context, key string, val string) 
 	return
 }
 
-func (c *WrapperTest) DoSomething2(ctx context.Context, key ...string) (_string string, _error error) {
+func (c *WrapperTest) DoSomething2(ctx context.Context, keys ...string) (_string string, _error error) {
 	_params := []*sandwich.Valued{
-		{Name: "ctx", Value: ctx}, {Name: "key", Value: key},
+		{Name: "ctx", Value: ctx}, {Name: "keys", Value: keys},
 	}
 	invoke := &sandwich.Invoke{Ctx: ctx, MethodName: "DoSomething2", Params: _params}
 	invoke.SetProcess(func() []*sandwich.Valued {

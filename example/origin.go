@@ -20,11 +20,11 @@ func (o *Origin) DoSomething() {
 }
 
 func (o *Origin) DoSomething1(ctx context.Context, key, val string) error {
-	//TODO implement me
-	panic("implement me")
+	fmt.Printf("DoSomething1, key->  %s \n", key)
+	return nil
 }
 
-func (o *Origin) DoSomething2(ctx context.Context, key ...string) (string, error) {
-	//TODO implement me
-	panic("implement me")
+func (o *Origin) DoSomething2(ctx context.Context, keys ...string) (string, error) {
+	fmt.Printf("DoSomething2, keys->  %+v \n", keys)
+	return "", nil
 }
