@@ -22,8 +22,7 @@
 
 1. 定义包装代码([example/wrapper.go](example/wrapper.go))
 2. `执行 go:generate` 生成代码([example/wrapper_gen.go](example/wrapper_gen.go))
-3. 生成包装后的代码([example/wrapper_gen.go](example/wrapper_gen.go))
-4. 执行测试用例([example/wrapper_test.go](example/wrapper_test.go))
+3. 执行测试用例([example/wrapper_test.go](example/wrapper_test.go))
    最后执行测试代码后会输出
 
 ```
